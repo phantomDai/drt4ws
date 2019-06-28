@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://acms" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://acms" xmlns:intf="http://acms" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://acms" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="airClass" type="xsd:int"/>
+   <element name="area" type="xsd:int"/>
+   <element name="isStudent" type="xsd:boolean"/>
+   <element name="luggage" type="xsd:double"/>
+   <element name="economicfee" type="xsd:double"/>
+   <element name="feeCalculationReturn" type="xsd:double"/>
+   <element name="airClass1" type="xsd:int"/>
+   <element name="preairclassReturn" type="xsd:int"/>
+   <element name="area1" type="xsd:int"/>
+   <element name="preareaReturn" type="xsd:int"/>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="preairclassResponse">
+
+      <wsdl:part element="impl:preairclassReturn" name="preairclassReturn"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="preairclassRequest">
+
+      <wsdl:part element="impl:airClass1" name="airClass"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="preareaResponse">
+
+      <wsdl:part element="impl:preareaReturn" name="preareaReturn"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="feeCalculationRequest">
+
+      <wsdl:part element="impl:airClass" name="airClass"/>
+
+      <wsdl:part element="impl:area" name="area"/>
+
+      <wsdl:part element="impl:isStudent" name="isStudent"/>
+
+      <wsdl:part element="impl:luggage" name="luggage"/>
+
+      <wsdl:part element="impl:economicfee" name="economicfee"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="feeCalculationResponse">
+
+      <wsdl:part element="impl:feeCalculationReturn" name="feeCalculationReturn"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="preareaRequest">
+
+      <wsdl:part element="impl:area1" name="area"/>
+
+   </wsdl:message>
+
+   <wsdl:portType name="ACMS">
+
+      <wsdl:operation name="feeCalculation" parameterOrder="airClass area isStudent luggage economicfee">
+
+         <wsdl:input message="impl:feeCalculationRequest" name="feeCalculationRequest"/>
+
+         <wsdl:output message="impl:feeCalculationResponse" name="feeCalculationResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="preairclass" parameterOrder="airClass">
+
+         <wsdl:input message="impl:preairclassRequest" name="preairclassRequest"/>
+
+         <wsdl:output message="impl:preairclassResponse" name="preairclassResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="prearea" parameterOrder="area">
+
+         <wsdl:input message="impl:preareaRequest" name="preareaRequest"/>
+
+         <wsdl:output message="impl:preareaResponse" name="preareaResponse"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="ACMSSoapBinding" type="impl:ACMS">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="feeCalculation">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="feeCalculationRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="feeCalculationResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="preairclass">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="preairclassRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="preairclassResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="prearea">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="preareaRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="preareaResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="ACMSService">
+
+      <wsdl:port binding="impl:ACMSSoapBinding" name="ACMS">
+
+         <wsdlsoap:address location="http://localhost:8084//services/acms/ACMS"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>
