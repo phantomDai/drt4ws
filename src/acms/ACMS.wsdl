@@ -5,15 +5,15 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
  <wsdl:types>
   <schema elementFormDefault="qualified" targetNamespace="http://acms" xmlns="http://www.w3.org/2001/XMLSchema">
    <element name="airClass" type="xsd:int"/>
+   <element name="preairclassReturn" type="xsd:int"/>
    <element name="area" type="xsd:int"/>
+   <element name="preareaReturn" type="xsd:int"/>
+   <element name="airClass1" type="xsd:int"/>
+   <element name="area1" type="xsd:int"/>
    <element name="isStudent" type="xsd:boolean"/>
    <element name="luggage" type="xsd:double"/>
    <element name="economicfee" type="xsd:double"/>
    <element name="feeCalculationReturn" type="xsd:double"/>
-   <element name="airClass1" type="xsd:int"/>
-   <element name="preairclassReturn" type="xsd:int"/>
-   <element name="area1" type="xsd:int"/>
-   <element name="preareaReturn" type="xsd:int"/>
   </schema>
  </wsdl:types>
 
@@ -25,7 +25,7 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
    <wsdl:message name="preairclassRequest">
 
-      <wsdl:part element="impl:airClass1" name="airClass"/>
+      <wsdl:part element="impl:airClass" name="airClass"/>
 
    </wsdl:message>
 
@@ -37,9 +37,9 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
    <wsdl:message name="feeCalculationRequest">
 
-      <wsdl:part element="impl:airClass" name="airClass"/>
+      <wsdl:part element="impl:airClass1" name="airClass"/>
 
-      <wsdl:part element="impl:area" name="area"/>
+      <wsdl:part element="impl:area1" name="area"/>
 
       <wsdl:part element="impl:isStudent" name="isStudent"/>
 
@@ -49,27 +49,19 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
    </wsdl:message>
 
+   <wsdl:message name="preareaRequest">
+
+      <wsdl:part element="impl:area" name="area"/>
+
+   </wsdl:message>
+
    <wsdl:message name="feeCalculationResponse">
 
       <wsdl:part element="impl:feeCalculationReturn" name="feeCalculationReturn"/>
 
    </wsdl:message>
 
-   <wsdl:message name="preareaRequest">
-
-      <wsdl:part element="impl:area1" name="area"/>
-
-   </wsdl:message>
-
    <wsdl:portType name="ACMS">
-
-      <wsdl:operation name="feeCalculation" parameterOrder="airClass area isStudent luggage economicfee">
-
-         <wsdl:input message="impl:feeCalculationRequest" name="feeCalculationRequest"/>
-
-         <wsdl:output message="impl:feeCalculationResponse" name="feeCalculationResponse"/>
-
-      </wsdl:operation>
 
       <wsdl:operation name="preairclass" parameterOrder="airClass">
 
@@ -87,29 +79,19 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       </wsdl:operation>
 
+      <wsdl:operation name="feeCalculation" parameterOrder="airClass area isStudent luggage economicfee">
+
+         <wsdl:input message="impl:feeCalculationRequest" name="feeCalculationRequest"/>
+
+         <wsdl:output message="impl:feeCalculationResponse" name="feeCalculationResponse"/>
+
+      </wsdl:operation>
+
    </wsdl:portType>
 
    <wsdl:binding name="ACMSSoapBinding" type="impl:ACMS">
 
       <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-
-      <wsdl:operation name="feeCalculation">
-
-         <wsdlsoap:operation soapAction=""/>
-
-         <wsdl:input name="feeCalculationRequest">
-
-            <wsdlsoap:body use="literal"/>
-
-         </wsdl:input>
-
-         <wsdl:output name="feeCalculationResponse">
-
-            <wsdlsoap:body use="literal"/>
-
-         </wsdl:output>
-
-      </wsdl:operation>
 
       <wsdl:operation name="preairclass">
 
@@ -147,13 +129,31 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       </wsdl:operation>
 
+      <wsdl:operation name="feeCalculation">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="feeCalculationRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="feeCalculationResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
    </wsdl:binding>
 
    <wsdl:service name="ACMSService">
 
       <wsdl:port binding="impl:ACMSSoapBinding" name="ACMS">
 
-         <wsdlsoap:address location="http://localhost:8084//services/acms/ACMS"/>
+         <wsdlsoap:address location="http://localhost:8080//services/acms/ACMS"/>
 
       </wsdl:port>
 
